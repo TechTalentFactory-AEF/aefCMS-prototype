@@ -1,0 +1,12 @@
+<html>
+	<head>
+	<title>A simple WebPage</title>
+	</head>
+	<body>
+	
+		<h1>$!title</h1> 
+		$!h1
+		$!p1
+		
+	</body>
+</html>
