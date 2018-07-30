@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Main Page Test</title>
+	</head>
+	<body>
+		$!{children}
+	</body>
+</html>
+	
