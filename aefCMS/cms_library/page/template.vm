@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Main Page Test</title>
+		<title>$!{title}</title>
 	</head>
 	<body>
 		$!{children}
 	</body>
 </html>
-	

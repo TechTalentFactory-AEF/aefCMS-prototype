@@ -1,6 +1,7 @@
-package cms;
+package aefCMS;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class Library {
 	
 	private List<LibraryElement> elements;
 
-	public Library(File root) {
+	public Library(File root) throws IOException {
 		elements = new ArrayList<LibraryElement>();
 		for (File directory : root.listFiles()) {
 			elements.add(new LibraryElement(directory.getName(), directory.getPath() + "/template.vm"));

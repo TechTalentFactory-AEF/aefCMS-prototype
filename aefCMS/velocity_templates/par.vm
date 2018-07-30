@@ -1,3 +1,0 @@
-<p style="color: $!{text-color}">
-	$!{text}
-</p>

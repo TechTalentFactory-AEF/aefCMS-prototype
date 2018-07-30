@@ -3,6 +3,7 @@ package aefCMS;
 import java.io.StringWriter;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -28,8 +29,8 @@ public class HtmlRenderer {
 	}
 	
 	public StringBuffer render(PageElement pe) throws ResourceNotFoundException, ParseErrorException, Exception {
-		
-		Template peTemplate = ve.getTemplate(pe.getType().getTemplate());
+
+		Template peTemplate = ve.getTemplate(StringUtils.difference(ve.getProperty("file.resource.loader.path").toString(), pe.getType().getTemplate()));
 		VelocityContext peContext = new VelocityContext(pe.getParameters());
 		
 		if (! (pe.getChildren() == null || pe.getChildren().isEmpty())) {
