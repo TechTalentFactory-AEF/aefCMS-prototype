@@ -7,7 +7,7 @@ public class PageElement {
 	
 	private PageElement father;
 	private LibElement type;
-	private Map<String, String> paramethers;
+	private Map<String, String> parameters;
 	private List<PageElement> children;
 	
 	//GETTERS SETTERS
@@ -26,11 +26,11 @@ public class PageElement {
 		this.type = type;
 	}
 	
-	public Map<String, String> getParamethers() {
-		return paramethers;
+	public Map<String, String> getParameters() {
+		return parameters;
 	}
-	public void setParamethers(Map<String, String> paramethers) {
-		this.paramethers = paramethers;
+	public void setParameters(Map<String, String> parameters) {
+		this.parameters = parameters;
 	}
 	
 	public List<PageElement> getChildren() {
