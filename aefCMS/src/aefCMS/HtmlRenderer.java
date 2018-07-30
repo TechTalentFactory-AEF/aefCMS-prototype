@@ -12,12 +12,15 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 
 public class HtmlRenderer {
 	
-	private static String LOADER_TYPE = "file";
-	private static String LOADER_CLASS = "org.apache.velocity.runtime.resource.loader.FileResourceLoader";
+	private final String LOADER_TYPE = "file";
+	private final String LOADER_CLASS = "org.apache.velocity.runtime.resource.loader.FileResourceLoader";
 	
 	private VelocityEngine ve;
+	private String velocityTemplatesPath;
 
 	public HtmlRenderer(String velocityTemplatesPath) throws Exception {
+		
+		this.velocityTemplatesPath = velocityTemplatesPath;
 		
 		Properties p = new Properties();
 	    p.setProperty("resource.loader", LOADER_TYPE);
@@ -30,7 +33,7 @@ public class HtmlRenderer {
 	
 	public StringBuffer render(PageElement pe) throws ResourceNotFoundException, ParseErrorException, Exception {
 
-		Template peTemplate = ve.getTemplate(StringUtils.difference(ve.getProperty("file.resource.loader.path").toString(), pe.getType().getTemplate()));
+		Template peTemplate = ve.getTemplate(StringUtils.difference(velocityTemplatesPath, pe.getType().getTemplate()));
 		VelocityContext peContext = new VelocityContext(pe.getParameters());
 		
 		if (! (pe.getChildren() == null || pe.getChildren().isEmpty())) {
