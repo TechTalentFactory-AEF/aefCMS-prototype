@@ -23,6 +23,7 @@ public class PageElement {
 	public PageElement(PageElement parent, LibraryElement type, Map<String, String> parameters) {
 		this(type,parameters);
 		if (parent != null) {
+			this.parent = parent;
 			parent.getChildren().add(this);
 		}
 	}
