@@ -8,9 +8,10 @@ public class Main {
 	
 	public static void main(String[] args) throws Exception {
 			
-			final String BASE_PATH = System.getProperty("user.home") + "/git/aefCMS/aefCMS";
-			final String LIBRARY_PATH = BASE_PATH + "/cms_library";
-		
+			final String BASE_PATH = 			System.getProperty("user.home") + "/git/aefCMS/aefCMS";
+			final String LIBRARY_PATH = 		BASE_PATH + "/cms_library";
+			final String SAVE_PAGETREE_PATH =  BASE_PATH + "/saved_pagetree/pageTree.json";
+			
 			//GENERATE LIBRARY
 			
 			Library lib = new Library(new File(LIBRARY_PATH));
@@ -70,6 +71,14 @@ public class Main {
 			HtmlRenderer r = new HtmlRenderer(LIBRARY_PATH);
 			System.out.println(r.render(page));
 			
-	}
+			//SAVE TREE 
+			PageTreeSerializer.saveTreeToDisc(SAVE_PAGETREE_PATH, exampleTree);
+			
+			//LOAD TREE
+			PageTree loadedTree = PageTreeSerializer.loadTreeFromDisc(SAVE_PAGETREE_PATH);
+			System.out.println("LOADED TREE: ");
+			loadedTree.print();
 
+	}
 }
+	

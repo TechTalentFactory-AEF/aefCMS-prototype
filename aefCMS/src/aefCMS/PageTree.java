@@ -10,13 +10,19 @@ public class PageTree {
 		this.root = root;
 	}
 	
+	//GETTER
+	
+	public PageElement getRoot() {
+		return root;
+	}
+	
 	//TREE OPERATIONS
 	
 	public void addElement(PageElement element, PageElement parent, int siblingsPosition) {
 		element.setParent(parent);
 		parent.getChildren().add(siblingsPosition, element);
 	}
-	
+
 	public void addElement(PageElement element, PageElement parent) {
 		element.setParent(parent);
 		parent.getChildren().add(element);	//append to the end of the list
