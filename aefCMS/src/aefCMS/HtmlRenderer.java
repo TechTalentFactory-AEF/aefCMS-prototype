@@ -41,8 +41,7 @@ public class HtmlRenderer {
 			for (PageElement peChild : pe.getChildren()) {
 				childrenOut.append(render(peChild));
 			}
- 			peContext.put("children", childrenOut);		//WARNING the attribute is also added to the model! 
-		}
+		peContext.put("children", childrenOut);		//WARNING the attribute is also added to the model!
 		
 		StringWriter peOutput = new StringWriter();
 		peTemplate.merge(peContext, peOutput);	
