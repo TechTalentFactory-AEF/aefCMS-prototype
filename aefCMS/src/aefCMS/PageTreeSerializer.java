@@ -1,5 +1,6 @@
 package aefCMS;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -28,7 +29,7 @@ public class PageTreeSerializer {
 	}
 	
 	// LOAD PAGETREE	
-	public static PageTree loadTreeFromDisc(String loadPageTreePath) throws FileNotFoundException {
+	public static PageTree loadTreeFromDisc(String loadPageTreePath, String libraryPath) throws IOException {
 		// load main json object			
 		FileReader reader = new FileReader(loadPageTreePath);
 		JsonParser parser = new JsonParser();
@@ -37,14 +38,15 @@ public class PageTreeSerializer {
 		// new empty root
 		PageElement root = new PageElement(null, null);
 		// reload root and get inner jsonobject
-		root = reloadElementRecursive(root,loadedPageTree, true);
+		root = reloadElementRecursive(libraryPath, root,loadedPageTree, true);
 
 		return new PageTree(root); 
 	}	
 	
 	// UTILITES
-	private static PageElement reloadElementRecursive(PageElement currentElement, JsonObject currentJsonObject, Boolean iAmRoot) {
-		
+	private static PageElement reloadElementRecursive(String libraryPath, PageElement currentElement, JsonObject currentJsonObject, Boolean iAmRoot) throws IOException {
+		// library created to load the system component type
+		Library lib = new Library(new File(libraryPath));
 		// elements to load
 		LibraryElement loadedType=null;
 		Map<String, String> loadedParameters = new HashMap<String, String>();
@@ -58,24 +60,24 @@ public class PageTreeSerializer {
 		// children list 
 		currenChildren = currentJsonObject.getAsJsonArray("children");
 	
-		if (iAmRoot) {
-			currentElement.setType(loadedType);
+		if (iAmRoot) { 
+			currentElement.setType(lib.getElement(loadedType.getName()));
 			currentElement.setParameters(loadedParameters);
 			
 			if (currenChildren.size()>0) {
 				Iterator<JsonElement> localChildren = currenChildren.iterator();
 				
 				while (localChildren.hasNext()) {
-					reloadElementRecursive(currentElement, localChildren.next().getAsJsonObject(), false);
+					reloadElementRecursive(libraryPath, currentElement, localChildren.next().getAsJsonObject(), false);
 				}
 			}	
 		}
 		else {
-				PageElement localNode = new PageElement(currentElement, loadedType, loadedParameters);		
+				PageElement localNode = new PageElement(currentElement, lib.getElement(loadedType.getName()), loadedParameters);		
 				if (currenChildren.size()>0) {
 					Iterator<JsonElement> localChildren = currenChildren.iterator();
 					while (localChildren.hasNext()) {
-						reloadElementRecursive(localNode,localChildren.next().getAsJsonObject() ,false);
+						reloadElementRecursive(libraryPath, localNode,localChildren.next().getAsJsonObject() ,false);
 					}				
 				}	
 		}
