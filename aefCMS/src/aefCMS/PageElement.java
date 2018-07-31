@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class PageElement {
 
-	private PageElement parent;
+	private transient PageElement parent;
 	private LibraryElement type;
 	private Map<String, String> parameters;
 	private List<PageElement> children;

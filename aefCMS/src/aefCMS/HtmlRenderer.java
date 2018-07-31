@@ -46,6 +46,7 @@ public class HtmlRenderer {
 		
 		StringWriter peOutput = new StringWriter();
 		peTemplate.merge(peContext, peOutput);
+		peContext.remove("children");
 		
 		return peOutput.getBuffer();
 	}
