@@ -12,7 +12,7 @@ import org.apache.commons.io.FileUtils;
 public class LibraryElement {
 	
 	private String name;
-	private String template;
+	private transient String template;
 	private List<String> attributes;
 	
 	//CONSTRUCTOR
