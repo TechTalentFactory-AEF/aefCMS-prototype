@@ -83,9 +83,9 @@ public class Main {
 			//SAVE TREE 
 			PageTreeSerializer.saveTreeToDisc(SAVE_PAGETREE_PATH, exampleTree);
 			
-//			//LOAD TREE
-//			PageTree loadedTree = PageTreeSerializer.loadTreeFromDisc(SAVE_PAGETREE_PATH);
-//			System.out.println(loadedTree);
+			//LOAD TREE
+			PageTree loadedTree = PageTreeSerializer.loadTreeFromDisc(SAVE_PAGETREE_PATH);
+			loadedTree.print();
 
 	}
 }
