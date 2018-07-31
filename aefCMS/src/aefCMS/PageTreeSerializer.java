@@ -28,34 +28,34 @@ public class PageTreeSerializer {
 	}
 	
 	// LOAD PAGETREE	
-	public static PageTree loadTreeFromDisc(String loadPageTreePath) throws Exception {
-		// LOAD MAIN JSON OBJECT			
+	public static PageTree loadTreeFromDisc(String loadPageTreePath) throws FileNotFoundException {
+		// load main json object			
 		FileReader reader = new FileReader(loadPageTreePath);
 		JsonParser parser = new JsonParser();
-		// MAIN	JSON OBJECT
+		// main	json object
 		JsonObject loadedPageTree = (JsonObject) parser.parse(reader);
-		// NEW EMPTY ROOT
+		// new empty root
 		PageElement root = new PageElement(null, null);
-		// RELOAD ROOT AND GET INNER JSONOBJECT
+		// reload root and get inner jsonobject
 		root = reloadElementRecursive(root,loadedPageTree, true);
 
 		return new PageTree(root); 
 	}	
 	
-	// RELOAD PAGE TREE
-	private static PageElement reloadElementRecursive(PageElement currentElement, JsonObject currentJsonObject, Boolean iAmRoot) throws Exception{
+	// UTILITES
+	private static PageElement reloadElementRecursive(PageElement currentElement, JsonObject currentJsonObject, Boolean iAmRoot) {
 		
-		// ELEMENTS TO LOAD
+		// elements to load
 		LibraryElement loadedType=null;
 		Map<String, String> loadedParameters = new HashMap<String, String>();
 		JsonArray currenChildren = new JsonArray();
-		// LOADING ELEMENTS ONE BY ONE
+		// loading elements one by one
 		Gson gson = new Gson();
-		// ELEMENT TYPE 
+		// element type 
 		loadedType = gson.fromJson(currentJsonObject.getAsJsonObject().getAsJsonObject("type"), LibraryElement.class);
-		// CURRENT ATTRIBUTE MAP 
+		// current attribute map 
 		loadedParameters = gson.fromJson(currentJsonObject.getAsJsonObject("parameters"), Map.class);
-		// CHILDREN LIST 
+		// children list 
 		currenChildren = currentJsonObject.getAsJsonArray("children");
 	
 		if (iAmRoot) {

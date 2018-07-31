@@ -1,17 +1,8 @@
 package aefCMS;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.Writer;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class Main {
 	
@@ -85,6 +76,7 @@ public class Main {
 			
 			//LOAD TREE
 			PageTree loadedTree = PageTreeSerializer.loadTreeFromDisc(SAVE_PAGETREE_PATH);
+			System.out.println("LOADED TREE: ");
 			loadedTree.print();
 
 	}
