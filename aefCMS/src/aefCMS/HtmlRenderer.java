@@ -41,11 +41,12 @@ public class HtmlRenderer {
 			for (PageElement peChild : pe.getChildren()) {
 				childrenOut.append(render(peChild));
 			}
-			peContext.put("children", childrenOut);
+			peContext.put("children", childrenOut);		//WARNING the attribute is also added to the model!
 		}
 		
 		StringWriter peOutput = new StringWriter();
-		peTemplate.merge(peContext, peOutput);
+		peTemplate.merge(peContext, peOutput);	
+		peContext.remove("children");					//I remove it because I don't want the html code in the model
 		
 		return peOutput.getBuffer();
 	}
