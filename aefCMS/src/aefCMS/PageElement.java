@@ -3,6 +3,7 @@ package aefCMS;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class PageElement {
 
@@ -11,13 +12,16 @@ public class PageElement {
 	private Map<String, String> parameters;
 	private List<PageElement> children;
 	
-	//CONSTRUCTOR
+	//CONSTRUCTORS
 	
-	public PageElement(PageElement parent, LibraryElement type, Map<String, String> parameters) {
-		this.parent = parent;
+	public PageElement(LibraryElement type, Map<String, String> parameters) {
 		this.type = type;
 		this.parameters = parameters;
-		children = new ArrayList<>();
+		this.children = new ArrayList<PageElement>();
+	}
+	
+	public PageElement(PageElement parent, LibraryElement type, Map<String, String> parameters) {
+		this(type,parameters);
 		if (parent != null) {
 			parent.getChildren().add(this);
 		}
@@ -55,6 +59,25 @@ public class PageElement {
 
 	public void setChildren(List<PageElement> children) {
 		this.children = children;
+	}
+
+	//PRINT ELEMENT
+	
+	public void printRecursive() {
+		printRecursive("-");
+	}
+	
+	private void printRecursive(String dist) {
+		
+		System.out.print(dist + " type=" + type.getName() + ", parameters={ ");
+		for (Entry<String, String> par : parameters.entrySet()) 
+			System.out.print(par + ", ");
+		System.out.println("}");
+		
+		if(! children.isEmpty()) {
+			for (PageElement child : children)
+				child.printRecursive(dist + " " + dist);
+		}
 	}
 
 }

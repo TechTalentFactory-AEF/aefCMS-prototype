@@ -25,19 +25,21 @@ public class Main {
 			
 			Library lib = new Library(new File(LIBRARY_PATH));
 			
-			//CREATE BOGUS PageElements
+			//CREATE BOGUS PageTree
 			
 			//page
 					
 			Map<String, String> pageAttributes = new HashMap<String, String>();
 			pageAttributes.put("title", "My Page");
-			PageElement page = new PageElement(null, lib.getElement("page"), pageAttributes);
+			
+			PageElement page = new PageElement(lib.getElement("page"), pageAttributes);
 			
 			//title
 			
 			Map<String, String> titleAttributes = new HashMap<String, String>();
 			titleAttributes.put("h-text", "HELLO WORLD TITLE");
-			new PageElement(page, lib.getElement("title"), titleAttributes);
+			
+			PageElement title = new PageElement(lib.getElement("title"), titleAttributes);
 			
 			//paragraph
 			
@@ -45,14 +47,14 @@ public class Main {
 			paragraphAttributes.put("p-text", "Hello World Paragraph");
 			paragraphAttributes.put("p-text-color", "red");
 			
-			new PageElement(page, lib.getElement("paragraph"), paragraphAttributes);
+			PageElement paragraph = new PageElement(lib.getElement("paragraph"), paragraphAttributes);
 			
 			//container
 			
 			Map<String, String> containerAttributes = new HashMap<String, String>();
 			containerAttributes.put("border-style", "dotted");
 			 
-			PageElement c = new PageElement(page, lib.getElement("container"), containerAttributes);
+			PageElement container = new PageElement(lib.getElement("container"), containerAttributes);
 			
 			//paragraph inside container
 			
@@ -60,7 +62,18 @@ public class Main {
 			paragraph2Attributes.put("p-text", "Hello World Inside");
 			paragraph2Attributes.put("p-text-color", "blue");
 			
-			new PageElement(c, lib.getElement("paragraph"), paragraph2Attributes);
+			PageElement paragraph2 = new PageElement(lib.getElement("paragraph"), paragraph2Attributes);
+			
+			//create the tree
+			
+			PageTree exampleTree = new PageTree(page);
+			
+			exampleTree.addElement(title, page);
+			exampleTree.addElement(paragraph, page, 1);
+			exampleTree.addElement(container, page);
+			exampleTree.addElement(paragraph2, container);
+			
+			exampleTree.print();
 			
 			//GENERATE OUTPUT HTML
 			
@@ -84,7 +97,8 @@ public class Main {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-	}
+
+}
 	
 	////// UTILITIES
 	
