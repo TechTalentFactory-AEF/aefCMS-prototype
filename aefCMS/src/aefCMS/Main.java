@@ -75,10 +75,15 @@ public class Main {
 			PageTreeSerializer.saveTreeToDisc(SAVE_PAGETREE_PATH, exampleTree);
 			
 			//LOAD TREE
-			PageTree loadedTree = PageTreeSerializer.loadTreeFromDisc(SAVE_PAGETREE_PATH);
+			PageTree loadedTree = PageTreeSerializer.loadTreeFromDisc(SAVE_PAGETREE_PATH, LIBRARY_PATH);
 			System.out.println("LOADED TREE: ");
 			loadedTree.print();
-
+			Map<String, String> updatedMap = new HashMap<String, String>();
+			updatedMap.put("h-text", "HELLO WORLD TITLE MODIFIED");
+			PageTree.updateElement(loadedTree.getRoot().getChildren().get(0),updatedMap);
+			System.out.println("MODIFIED TREE:");
+			loadedTree.print();
+			System.out.println(r.render(loadedTree.getRoot()));
 	}
 }
 	
